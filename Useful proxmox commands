@@ -7,6 +7,9 @@ Some command's/aplications i use on a regular basis
 nload - to see network speeds and used bandwith (apt install nload)
 htop - a useful tool to see ram, swap & cpu ussage
 
+# Enable ssh in lxc
+doe nano /etc/ssh/sshd_config and change PermitRootLogin to yes.
+
 # Cluster (pvecm)
 Pvecm is a power full tool in proxmox! pvecm is the command to manage your cluster with
 
@@ -22,6 +25,3 @@ Some of the commands can be useful in different moments.
 pct help - it will show it's commands (for most you will need SUDO or Root permissions)
 pct unlock <lxc-id> - this wil unlock the container if its locked (pct lock won't work)
 pct destroy <lxc-id> [OPTIONS] - this will destroy the LXC and delete all the storage
-
-
-
