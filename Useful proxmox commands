@@ -1,5 +1,27 @@
-# Useful proxmox commands
+# Useful proxmox commands i use in proxmox
 # Tis isn't a script this are individual commands!
 
+# General
+Some command's/aplications i use on a regular basis
+
+nload - to see network speeds and used bandwith (apt install nload)
+htop - a useful tool to see ram, swap & cpu ussage
+
+# Cluster (pvecm)
+Pvecm is a power full tool in proxmox! pvecm is the command to manage your cluster with
+
+pvecm help - this wil show a list of commands you can use
+pvecm expevted <total quorate votes> - with this command you can set the maximum expected votes for your cluster (all servers combined)
+pvecm status - this will show the status of your cluster
+nano /etc/pve/corosync.conf - this will show the config of your cluster here you can set the quorum votes for your cluster nodes
+
 # LXC containers
-the command pct is for lxc's you can unlock and delete containers with this command (eg. pct unloc <lxc-id>) 
+The command pct is for lxc's you can unlock and delete containers with this command (eg. pct unlock <lxc-id>)
+Some of the commands can be useful in different moments.
+
+pct help - it will show it's commands (for most you will need SUDO or Root permissions)
+pct unlock <lxc-id> - this wil unlock the container if its locked (pct lock won't work)
+pct destroy <lxc-id> [OPTIONS] - this will destroy the LXC and delete all the storage
+
+
+
