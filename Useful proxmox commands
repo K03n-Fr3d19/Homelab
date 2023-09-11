@@ -1,0 +1,5 @@
+# Useful proxmox commands
+# Tis isn't a script this are individual commands!
+
+# LXC containers
+the command pct is for lxc's you can unlock and delete containers with this command (eg. pct unloc <lxc-id>) 
