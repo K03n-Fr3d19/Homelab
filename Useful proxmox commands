@@ -13,7 +13,7 @@ Pvecm is a power full tool in proxmox! pvecm is the command to manage your clust
 pvecm help - this wil show a list of commands you can use
 pvecm expevted <total quorate votes> - with this command you can set the maximum expected votes for your cluster (all servers combined)
 pvecm status - this will show the status of your cluster
-nano /etc/pve/corosync.conf - this will show the config of your cluster here you can set the quorum votes for your cluster nodes
+nano /etc/pve/corosync.conf - this will show the config of your cluster here you can set the quorum votes for your cluster nodes you may need to chage the file permissions because i couldn't change it before i set the permissions to 777
 
 # LXC containers
 The command pct is for lxc's you can unlock and delete containers with this command (eg. pct unlock <lxc-id>)
