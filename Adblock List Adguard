@@ -5,6 +5,10 @@
 # [Google Ads]
 127.0.0.1 afs.googlesyndication.com
 
+# [Google Analytics]
+127.0.0.1 analytics.google.com
+127.0.0.1 click.googleanalytics.com
+
 # [Facebook]
 127.0.0.1 an.facebook.com
 
@@ -27,3 +31,30 @@
 127.0.0.1 adx.ads.oppomobile.com
 127.0.0.1 ck.ads.oppomobile.com
 127.0.0.1 data.ads.oppomobile.com
+
+# [Sentry]
+127.0.0.1 browser.sentry-cdn.com
+127.0.0.1 app.getsentry.com
+
+# [Bugsnag]
+127.0.0.1 browser.sentry-cdn.com
+127.0.0.1 app.getsentry.com
+
+# [Bugsnag]
+127.0.0.1 notify.bugsnag.com
+127.0.0.1 sessions.bugsnag.com
+127.0.0.1 api.bugsnag.com
+127.0.0.1 app.bugsnag.com
+
+# [Yandex]
+127.0.0.1 appmetrica.yandex.ru
+127.0.0.1 metrika.yandex.ru
+127.0.0.1 advertising.yandex.ru
+
+# [Yahoo]
+127.0.0.1 udc.yahoo.com
+127.0.0.1 udcm.yahoo.com
+127.0.0.1 log.fc.yahoo.com
+
+# [Apple]
+127.0.0.1 advertising.apple.com
