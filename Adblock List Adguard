@@ -1,0 +1,29 @@
+!
+!  CUSTOM ADGUARD BLOCK LIST
+!
+
+# [Google Ads]
+127.0.0.1 afs.googlesyndication.com
+
+# [Facebook]
+127.0.0.1 an.facebook.com
+
+# [Yandex]
+127.0.0.1 extmaps-api.yandex.net
+127.0.0.1 offerwall.yandex.net
+
+# [Unity]
+127.0.0.1 auction.unityads.unity3d.com
+127.0.0.1 webview.unityads.unity3d.com
+127.0.0.1 config.unityads.unity3d.com
+127.0.0.1 adserver.unityads.unity3d.com
+
+# [Realme]
+127.0.0.1 bdapi-ads.realmemobile.com
+127.0.0.1 bdapi-in-ads.realmemobile.com
+
+# [Oppo]
+127.0.0.1 adsfs.oppomobile.com
+127.0.0.1 adx.ads.oppomobile.com
+127.0.0.1 ck.ads.oppomobile.com
+127.0.0.1 data.ads.oppomobile.com
