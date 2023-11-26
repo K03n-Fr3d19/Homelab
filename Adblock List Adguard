@@ -58,3 +58,6 @@
 
 # [Apple]
 127.0.0.1 advertising.apple.com
+
+# [Twitter/X]
+127.0.0.1 ads-api.twitter.com
