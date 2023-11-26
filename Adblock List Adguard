@@ -17,52 +17,52 @@
 ||offerwall.yandex.net
 
 # [Unity]
-127.0.0.1 auction.unityads.unity3d.com
-127.0.0.1 webview.unityads.unity3d.com
-127.0.0.1 config.unityads.unity3d.com
-127.0.0.1 adserver.unityads.unity3d.com
+||auction.unityads.unity3d.com
+||webview.unityads.unity3d.com
+||config.unityads.unity3d.com
+||adserver.unityads.unity3d.com
 
 # [Realme]
-127.0.0.1 bdapi-ads.realmemobile.com
-127.0.0.1 bdapi-in-ads.realmemobile.com
+||bdapi-ads.realmemobile.com
+||bdapi-in-ads.realmemobile.com
 
 # [Oppo]
-127.0.0.1 adsfs.oppomobile.com
-127.0.0.1 adx.ads.oppomobile.com
-127.0.0.1 ck.ads.oppomobile.com
-127.0.0.1 data.ads.oppomobile.com
+||adsfs.oppomobile.com
+||adx.ads.oppomobile.com
+||ck.ads.oppomobile.com
+||data.ads.oppomobile.com
 
 # [Sentry]
-127.0.0.1 browser.sentry-cdn.com
-127.0.0.1 app.getsentry.com
+||browser.sentry-cdn.com
+||app.getsentry.com
 
 # [Bugsnag]
-127.0.0.1 browser.sentry-cdn.com
-127.0.0.1 app.getsentry.com
+||browser.sentry-cdn.com
+||app.getsentry.com
 
 # [Bugsnag]
-127.0.0.1 notify.bugsnag.com
-127.0.0.1 sessions.bugsnag.com
-127.0.0.1 api.bugsnag.com
-127.0.0.1 app.bugsnag.com
+||notify.bugsnag.com
+||sessions.bugsnag.com
+||api.bugsnag.com
+||app.bugsnag.com
 
 # [Yandex]
-127.0.0.1 appmetrica.yandex.ru
-127.0.0.1 metrika.yandex.ru
-127.0.0.1 advertising.yandex.ru
+||appmetrica.yandex.ru
+||metrika.yandex.ru
+||advertising.yandex.ru
 
 # [Yahoo]
-127.0.0.1 udc.yahoo.com
-127.0.0.1 udcm.yahoo.com
-127.0.0.1 log.fc.yahoo.com
+||udc.yahoo.com
+||udcm.yahoo.com
+||log.fc.yahoo.com
 
 # [Apple]
-127.0.0.1 advertising.apple.com
-127.0.0.1 tr.iadsdk.apple.com
-127.0.0.1 metrics.mzstatic.com
-127.0.0.1 notes-analytics-events.apple.com
-127.0.0.1 books-analytics-events.apple.com
-127.0.0.1 weather-analytics-events.apple.com
+||advertising.apple.com
+||tr.iadsdk.apple.com
+||metrics.mzstatic.com
+||notes-analytics-events.apple.com
+||books-analytics-events.apple.com
+||weather-analytics-events.apple.com
 
 # [Twitter/X]
-127.0.0.1 ads-api.twitter.com
+||ads-api.twitter.com
