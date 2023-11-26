@@ -2,8 +2,11 @@
 !  CUSTOM ADGUARD BLOCK LIST
 !
 
+# [Amazon]
+||advertising-api-eu.amazon.com^
+
 # [Google Ads]
-||afs.googlesyndication.com
+||afs.googlesyndication.com^
 
 # [Google Analytics]
 ||analytics.google.com
@@ -66,3 +69,18 @@
 
 # [Twitter/X]
 ||ads-api.twitter.com
+||static.ads-twitter.com
+
+# [Doubleclick.net]
+||stats.g.doubleclick.net
+||static.doubleclick.net
+||m.doubleclick.net
+||mediavisor.doubleclick.net
+
+# [Adcolony]
+||ads30.adcolony.com
+||adc3-launch.adcolony.com
+||events3alt.adcolony.com
+
+# [Media.net]
+||static.media.net
