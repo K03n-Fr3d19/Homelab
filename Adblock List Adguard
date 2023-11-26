@@ -58,6 +58,11 @@
 
 # [Apple]
 127.0.0.1 advertising.apple.com
+127.0.0.1 tr.iadsdk.apple.com
+127.0.0.1 metrics.mzstatic.com
+127.0.0.1 notes-analytics-events.apple.com
+127.0.0.1 books-analytics-events.apple.com
+127.0.0.1 weather-analytics-events.apple.com
 
 # [Twitter/X]
 127.0.0.1 ads-api.twitter.com
