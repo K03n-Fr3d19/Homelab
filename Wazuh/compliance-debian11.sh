@@ -51,3 +51,4 @@ ufw deny in from 127.0.0.0/8
 ufw deny in from ::1
 ufw default deny incoming
 ufw default deny routed
+ufw status
