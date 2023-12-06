@@ -24,16 +24,30 @@ mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
 ### INSTALL SUDO FOR PERMISSION MANAGEMENT ###
 apt install sudo -y
 ### SET PERMISSIONS FOR SHADOW ###
-chown root:root /etc/shadow && chmod u-x,g-wx,o-rwx /etc/shadow
-chown root:root /etc/shadow- && chmod u-x,g-wx,o-rwx /etc/shadow-
-chown root:root /etc/gshadow && chmod u-x,g-wx,o-rwx /etc/gshadow
-chown root:root /etc/gshadow- && chmod u-x,g-wx,o-rwx /etc/gshadow-
+chown root:shadow /etc/shadow && chmod u-x,g-wx,o-rwx /etc/shadow
+chown root:shadow /etc/shadow- && chmod u-x,g-wx,o-rwx /etc/shadow-
+chown root:shadow /etc/gshadow && chmod u-x,g-wx,o-rwx /etc/gshadow
+chown root:shadow /etc/gshadow- && chmod u-x,g-wx,o-rwx /etc/gshadow-
+### SET PERMISSIONS FOR SSH CONFIG ###
+chown root:root /etc/ssh/sshd_config && chmod og-rwx /etc/ssh/sshd_config
 ### INSTALL AppArmor ###
 apt install apparmor apparmor-utils -y
 ### INSTALL UFW (Uncomplicated Firewall) ###
 apt install ufw -y
-### INSTALL AUDITD ###
+### INSTALL & SETUP AUDITD ###
 apt install auditd audispd-plugins -y
 systemctl --now enable auditd
 ### USERS THAT ARE INACTIVE FOR 30 DAYS OR MORE ARE AUTMATICLY DISABLED ###
 useradd -D -f 30
+### JOURNALD SETTINGS ###
+systemctl --now disable systemd-journal-remote.socket
+### UFW SETUP ###
+ufw allow ssh
+systemctl --now enable ufw.service active
+ufw enable
+ufw allow in on lo
+ufw allow out on lo
+ufw deny in from 127.0.0.0/8
+ufw deny in from ::1
+ufw default deny incoming
+ufw default deny routed
