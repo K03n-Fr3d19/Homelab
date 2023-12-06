@@ -24,10 +24,10 @@ mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
 ### INSTALL SUDO FOR PERMISSION MANAGEMENT ###
 apt install sudo -y
 ### SET PERMISSIONS FOR SHADOW ###
-chown root:shadow /etc/shadow && chmod u-x,g-wx,o-rwx /etc/shadow
-chown root:shadow /etc/shadow- && chmod u-x,g-wx,o-rwx /etc/shadow-
-chown root:shadow /etc/gshadow && chmod u-x,g-wx,o-rwx /etc/gshadow
-chown root:shadow /etc/gshadow- && chmod u-x,g-wx,o-rwx /etc/gshadow-
+chown root:root /etc/shadow && chmod u-x,g-wx,o-rwx /etc/shadow
+chown root:root /etc/shadow- && chmod u-x,g-wx,o-rwx /etc/shadow-
+chown root:root /etc/gshadow && chmod u-x,g-wx,o-rwx /etc/gshadow
+chown root:root /etc/gshadow- && chmod u-x,g-wx,o-rwx /etc/gshadow-
 ### INSTALL AppArmor ###
 apt install apparmor apparmor-utils -y
 ### INSTALL UFW (Uncomplicated Firewall) ###
