@@ -13,10 +13,10 @@
 policy:
   id: "proxmoxct_debian_11"
   file: "proxmoxct_debian_11.yml"
-  name: "Proxmox Container Debian Linux 11 Benchmark v0.1"
+  name: "Proxmox Debian Linux 11 Benchmark v0.1"
   description: "This document provides prescriptive guidance for establishing a secure configuration posture for Debian Linux 11."
   references:
-   - https://www.cisecurity.org/cis-benchmarks/
+    - https://www.cisecurity.org/cis-benchmarks/
 
 requirements:
   title: "Check Debian version."
@@ -764,8 +764,56 @@ checks:
       - "c:systemctl status aidecheck.timer -> r:active"
 
   ############################################################
-  # 1.4 Secure Boot Settings (There is no GRUB on Proxmox containers)
+  # 1.4 Secure Boot Settings
   ############################################################
+
+  # 1.4.1 Ensure bootloader password is set (Automated)
+  - id: 29528
+    title: "Ensure bootloader password is set."
+    description: "Setting the boot loader password will require that anyone rebooting the system must enter a password before being able to set command line boot parameters."
+    rationale: "Requiring a boot password upon execution of the boot loader will prevent an unauthorized user from entering boot parameters or changing the boot partition. This prevents users from weakening security (e.g. turning off AppArmor at boot time)."
+    impact: "If password protection is enabled, only the designated superuser can edit a Grub 2 menu item by pressing 'e' or access the GRUB 2 command line by pressing 'c' If GRUB 2 is set up to boot automatically to a password-protected menu entry the user has no option to back out of the password prompt to select another menu entry. Holding the SHIFT key will not display the menu in this case. The user must enter the correct username and password. If unable, the configuration files will have to be edited via the LiveCD or other means to fix the problem You can add --unrestricted to the menu entries to allow the system to boot without entering a password. Password will still be required to edit menu items. More Information: https://help.ubuntu.com/community/Grub2/Passwords."
+    remediation: 'Create an encrypted password with grub-mkpasswd-pbkdf2: # grub-mkpasswd-pbkdf2 Enter password: <password> Reenter password: <password> PBKDF2 hash of your password is <encrypted-password>. Add the following into a custom /etc/grub.d configuration file: cat <<EOF set superusers="<username>" password_pbkdf2 <username> <encrypted-password> EOF. The superuser/user information and password should not be contained in the /etc/grub.d/00_header file as this file could be overwritten in a package update. If there is a requirement to be able to boot/reboot without entering the password, edit /etc/grub.d/10_linux and add --unrestricted to the line CLASS= Example: CLASS="--class gnu-linux --class gnu --class os --unrestricted". Run the following command to update the grub2 configuration: # update-grub.'
+    references:
+      - https://help.ubuntu.com/community/Grub2/Passwords
+    compliance:
+      - cis: ["1.4.1"]
+      - cis_csc_v8: ["5.2"]
+      - cis_csc_v7: ["4.4"]
+      - cmmc_v2.0: ["IA.L2-3.5.7"]
+      - pci_dss_4.0: ["2.2.2", "8.3.5", "8.3.6", "8.6.3"]
+      - soc_2: ["CC6.1"]
+      - iso_27001-2013: ["A.9.4.3"]
+      - mitre_techniques: ["T1542"]
+      - mitre_tactics: ["TA0003"]
+      - mitre_mitigations: ["M1046"]
+    condition: all
+    rules:
+      - 'f:/boot/grub/grub.cfg -> r:^\s*\t*set superusers'
+      - 'f:/boot/grub/grub.cfg -> r:^\s*\t*password'
+
+  # 1.4.2 Ensure permissions on bootloader config are configured (Automated) - Not Implemented Because there is no grub in a proxmox container
+
+  # 1.4.3 Ensure authentication required for single user mode (Automated)
+  - id: 29530
+    title: "Ensure authentication required for single user mode."
+    description: "Single user mode is used for recovery when the system detects an issue during boot or by manual selection from the bootloader."
+    rationale: "Requiring authentication in single user mode prevents an unauthorized user from rebooting the system into single user to gain root privileges without credentials."
+    remediation: "Run the following command and follow the prompts to set a password for the root user: # passwd root."
+    compliance:
+      - cis: ["1.4.3"]
+      - cis_csc_v8: ["5.2"]
+      - cis_csc_v7: ["4.4"]
+      - cmmc_v2.0: ["IA.L2-3.5.7"]
+      - pci_dss_4.0: ["2.2.2", "8.3.5", "8.3.6", "8.6.3"]
+      - soc_2: ["CC6.1"]
+      - iso_27001-2013: ["A.9.4.3"]
+      - mitre_techniques: ["T1548"]
+      - mitre_tactics: ["TA0005"]
+      - mitre_mitigations: ["M1022"]
+    condition: all
+    rules:
+      - 'f:/etc/shadow -> r:^root:\$\w'
 
   ############################################################
   # 1.5 Additional Process Hardening
@@ -861,7 +909,7 @@ checks:
       - "c:dpkg-query -W -f='${binary:Package}\\t${Status}\\t${db:Status-Status}\\n' apparmor -> r:install ok installed"
       - "c:dpkg-query -W -f='${binary:Package}\\t${Status}\\t${db:Status-Status}\\n' apparmor-utils -> r:install ok installed"
 
-  # 1.6.1.2 Ensure AppArmor is enabled in the bootloader configuration (Automated) (Does not work with Proxmox containers)
+  # 1.6.1.2 Ensure AppArmor is enabled in the bootloader configuration (Automated) - Not Implemented because grub(bootloader) doesnt work on a container
   # 1.6.1.3 Ensure all AppArmor Profiles are in enforce or complain mode (Automated)
   - id: 29536
     title: "Ensure all AppArmor Profiles are in enforce or complain mode."
@@ -1125,106 +1173,25 @@ checks:
   ############################################################
 
   # 2.1.2.1 Ensure chrony is configured with authorized timeserver (Manual) - Not Implemented
-
-  # 2.1.2.2 Ensure chrony is running as user _chrony (Automated)
-  - id: 29547
-    title: "Ensure chrony is running as user _chrony."
-    description: "The chrony package is installed with a dedicated user account _chrony. This account is granted the access required by the chronyd service."
-    rationale: "The chronyd service should run with only the required privileges."
-    remediation: "Add or edit the user line to /etc/chrony/chrony.conf or a file ending in .conf in /etc/chrony/conf.d/: user _chrony OR If another time synchronization service is in use on the system, run the following command to remove chrony from the system: # apt purge chrony."
-    compliance:
-      - cis: ["2.1.2.2"]
-      - cis_csc_v8: ["8.4"]
-      - cis_csc_v7: ["6.1"]
-      - cmmc_v2.0: ["AU.L2-3.3.7"]
-      - pci_dss_3.2.1: ["10.4"]
-      - pci_dss_4.0: ["10.6", "10.6.1", "10.6.2", "10.6.3"]
-      - nist_sp_800-53: ["AU-7"]
-      - soc_2: ["CC4.1", "CC5.2"]
-      - iso_27001-2013: ["A.12.4.4"]
-    condition: all
-    rules:
-      - 'c:sh -c "ps -ef | grep chronyd | grep -v grep " -> r:chronyd\s'
-      - 'not c:sh -c "ps -ef |grep chronyd | grep -v grep " -> !r:^_chrony && r:chronyd\s'
-
-  # 2.1.2.3 Ensure chrony is enabled and running (Automated)
-  - id: 29548
-    title: "Ensure chrony is enabled and running."
-    description: "chrony is a daemon for synchronizing the system clock across the network."
-    rationale: "chrony needs to be enabled and running in order to synchronize the system to a timeserver. Time synchronization is important to support time sensitive security mechanisms and to ensure log files have consistent time records across the enterprise to aid in forensic investigations."
-    remediation: "IF chrony is in use on the system, run the following commands: Run the following command to unmask chrony.service: # systemctl unmask chrony.service. Run the following command to enable and start chrony.service: # systemctl --now enable chrony.service OR If another time synchronization service is in use on the system, run the following command to remove chrony: # apt purge chrony."
-    compliance:
-      - cis: ["2.1.2.3"]
-      - cis_csc_v8: ["8.4"]
-      - cis_csc_v7: ["6.1"]
-      - cmmc_v2.0: ["AU.L2-3.3.7"]
-      - pci_dss_3.2.1: ["10.4"]
-      - pci_dss_4.0: ["10.6", "10.6.1", "10.6.2", "10.6.3"]
-      - nist_sp_800-53: ["AU-7"]
-      - soc_2: ["CC4.1", "CC5.2"]
-      - iso_27001-2013: ["A.12.4.4"]
-    condition: all
-    rules:
-      - "c:systemctl is-enabled chrony.service -> r:^enabled"
-      - "c:systemctl is-active chrony.service -> r:^active"
-
+  # 2.1.2.2 Ensure chrony is running as user _chrony (Automated) - Not Implemented because there is chosen to use the standard time server
+  # 2.1.2.3 Ensure chrony is enabled and running (Automated) - Not Implemented because there is chosen to use the standard time server
+  
   ############################################################
   # 2.1.3 Configure systemd-timesyncd
   ############################################################
 
-  # 2.1.3.1 Ensure systemd-timesyncd configured with authorized timeserver (Manual)
-  - id: 29549
-    title: "Ensure systemd-timesyncd configured with authorized timeserver."
-    description: "- NTP= > A space-separated list of NTP server host names or IP addresses. During runtime this list is combined with any per-interface NTP servers acquired from systemd-networkd.service(8). systemd-timesyncd will contact all configured system or per-interface servers in turn, until one responds. When the empty string is assigned, the list of NTP servers is reset, and all prior assignments will have no effect. This setting defaults to an empty list. - FallbackNTP= > A space-separated list of NTP server host names or IP addresses to be used as the fallback NTP servers. Any per-interface NTP servers obtained from systemd-networkd.service(8) take precedence over this setting, as do any servers set via NTP= above. This setting is hence only relevant if no other NTP server information is known. When the empty string is assigned, the list of NTP servers is reset, and all prior assignments will have no effect. If this option is not given, a compiled-in list of NTP servers is used."
-    rationale: "Time synchronization is important to support time sensitive security mechanisms and to ensure log files have consistent time records across the enterprise to aid in forensic investigations."
-    remediation: 'Edit or create a file in /etc/systemd/timesyncd.conf.d ending in .conf and add the NTP= and/or FallbackNTP= lines to the [Time] section: Example: [Time] NTP=time.nist.gov # Uses the generic name for NIST''s time servers -AND/OR- FallbackNTP=time-a-g.nist.gov time-b-g.nist.gov time-c-g.nist.gov # Space separated list of NIST time servers Note: Servers added to these line(s) should follow local site policy. NIST servers are for example. The timesyncd.conf.d directory may need to be created. Example script: The following example script will create the systemd-timesyncd drop-in configuration snippet: #!/usr/bin/env bash ntp_ts="time.nist.gov" ntp_fb="time-a-g.nist.gov time-b-g.nist.gov time-c-g.nist.gov" disfile="/etc/systemd/timesyncd.conf.d/50-timesyncd.conf" if ! find /etc/systemd -type f -name ''*.conf'' -exec grep -Ph ''^\h*NTP=\H+'' {} +; then [ ! -d /etc/systemd/timesyncd.conf.d ] && mkdir /etc/systemd/timesyncd.conf.d ! grep -Pqs ''^\h*\[Time\]'' "$disfile" && echo "[Time]" >> "$disfile" echo "NTP=$ntp_ts" >> "$disfile" fi if ! find /etc/systemd -type f -name ''*.conf'' -exec grep -Ph ''^\h*FallbackNTP=\H+'' {} +; then [ ! -d /etc/systemd/timesyncd.conf.d ] && mkdir /etc/systemd/timesyncd.conf.d ! grep -Pqs ''^\h*\[Time\]'' "$disfile" && echo "[Time]" >> "$disfile" echo "FallbackNTP=$ntp_fb" >> "$disfile" fi Run the following command to reload the systemd-timesyncd configuration: # systemctl try-reload-or-restart systemd-timesyncd OR If another time synchronization service is in use on the system, run the following command to stop and mask systemd-timesyncd: # systemctl --now mask systemd-timesyncd.'
-    references:
-      - https://www.freedesktop.org/software/systemd/man/timesyncd.conf.html
-      - https://tf.nist.gov/tf-cgi/servers.cgi
-    compliance:
-      - cis: ["2.1.3.1"]
-      - cis_csc_v8: ["8.4"]
-      - cis_csc_v7: ["6.1"]
-      - cmmc_v2.0: ["AU.L2-3.3.7"]
-      - pci_dss_3.2.1: ["10.4"]
-      - pci_dss_4.0: ["10.6", "10.6.1", "10.6.2", "10.6.3"]
-      - nist_sp_800-53: ["AU-7"]
-      - soc_2: ["CC4.1", "CC5.2"]
-      - iso_27001-2013: ["A.12.4.4"]
-      - mitre_techniques: ["T1070", "T1070.002", "T1562", "T1562.001"]
-      - mitre_tactics: ["TA0002"]
-      - mitre_mitigations: ["M1022"]
-    condition: all
-    rules:
-      - "d:/etc/systemd"
-      - 'd:/etc/systemd -> r:\.+.conf$'
-      - 'd:/etc/systemd -> r:\.+.conf$ -> r:^\s*\t*NTP=\w|^\s*\t*FallbackNTP=\w'
-
-  # 2.1.3.2 Ensure systemd-timesyncd is enabled and running (Automated)
-  - id: 29550
-    title: "Ensure systemd-timesyncd is enabled and running."
-    description: "systemd-timesyncd is a daemon that has been added for synchronizing the system clock across the network."
-    rationale: "systemd-timesyncd needs to be enabled and running in order to synchronize the system to a timeserver. Time synchronization is important to support time sensitive security mechanisms and to ensure log files have consistent time records across the enterprise to aid in forensic investigations."
-    remediation: "IF systemd-timesyncd is in use on the system, run the following commands: Run the following command to unmask systemd-timesyncd.service: # systemctl unmask systemd-timesyncd.service. Run the following command to enable and start systemd-timesyncd.service: # systemctl --now enable systemd-timesyncd.service OR If another time synchronization service is in use on the system, run the following command to stop and mask systemd-timesyncd: # systemctl --now mask systemd-timesyncd.service."
-    compliance:
-      - cis: ["2.1.3.2"]
-      - cis_csc_v8: ["8.4"]
-      - cis_csc_v7: ["6.1"]
-      - cmmc_v2.0: ["AU.L2-3.3.7"]
-      - pci_dss_3.2.1: ["10.4"]
-      - pci_dss_4.0: ["10.6", "10.6.1", "10.6.2", "10.6.3"]
-      - nist_sp_800-53: ["AU-7"]
-      - soc_2: ["CC4.1", "CC5.2"]
-      - iso_27001-2013: ["A.12.4.4"]
-    condition: all
-    rules:
-      - "c:systemctl is-enabled systemd-timesyncd.service -> r:^enabled"
-      - "c:systemctl is-active systemd-timesyncd.service -> r:^active"
-
+  # 2.1.3.1 Ensure systemd-timesyncd configured with authorized timeserver (Manual) - Not Implemented because there is chosen to use the standard time server
+  # 2.1.3.2 Ensure systemd-timesyncd is enabled and running (Automated) - Not Implemented because there is chosen to use the standard time server
+  
   ############################################################
-  # 2.1.4 Configure ntp (NTP IS REMOVED BECAUSE ITS NOT IN USE)
+  # 2.1.4 Configure ntp
   ############################################################
 
+  # 2.1.4.1 Ensure ntp access control is configured (Automated) - Not Implemented because there is chosen to use the standard time server
+  # 2.1.4.2 Ensure ntp is configured with authorized timeserver (Manual) - Not Implemented because there is chosen to use the standard time server
+  # 2.1.4.3 Ensure ntp is running as user ntp (Automated) - Not Implemented because there is chosen to use the standard time server
+  # 2.1.4.4 Ensure ntp is enabled and running (Automated) - Not Implemented because there is chosen to use the standard time server
+  
   ############################################################
   # 2.2 Special Purpose Services
   ############################################################
@@ -1637,8 +1604,7 @@ checks:
     rules:
       - "c:dpkg-query -W -f='${binary:Package}\\t${Status}\\t${db:Status-Status}\\n' rsh-client -> r:unknown ok not-installed|dpkg-query: no packages found matching rsh-client"
 
-  # 2.3.3 Ensure talk client is not installed (Automated) (Even when talk is removed it will not show up as completed)
-
+  # 2.3.3 Ensure talk client is not installed (Automated) - Not Implemented because even when talk is uninstalled this won't show up as "passed"
   # 2.3.4 Ensure telnet client is not installed (Automated)
   - id: 29574
     title: "Ensure telnet client is not installed."
@@ -1880,9 +1846,18 @@ checks:
       - 'c:ufw status -> r:\sactive'
 
   ############################################################
-  # 3.5.2 Configure nftables (NFTABLES ARE NOT IN USE)
+  # 3.5.2 Configure nftables
   ############################################################
 
+  # 3.5.2.1 Ensure nftables is installed (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.2.2 Ensure ufw is uninstalled or disabled with nftables (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.2.3 Ensure iptables are flushed with nftables (Manual) - Not Implemented Because we prefer UFW
+  # 3.5.2.4 Ensure a nftables table exists (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.2.5 Ensure nftables base chains exist (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.2.6 Ensure nftables loopback traffic is configured (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.2.7 Ensure nftables outbound and established connections are configured (Manual) - Not Implemented Because we prefer UFW
+  # 3.5.2.8 Ensure nftables default deny firewall policy (Automated) - Not Implemented Because we prefer UFW
+    # 3.5.2.9 Ensure nftables service is enabled (Automated) - Not Implemented Because we prefer UFW
   # 3.5.2.10 Ensure nftables rules are permanent (Automated) - Not implemented
 
   ############################################################
@@ -1890,21 +1865,29 @@ checks:
   ############################################################
 
   ############################################################
-  # 3.5.3.1 Configure iptables software (NOT IN USE)
+  # 3.5.3.1 Configure iptables software
   ############################################################
 
+  # 3.5.3.1.1 Ensure iptables packages are installed (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.3.1.2 Ensure nftables is not installed with iptables (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.3.1.3 Ensure ufw is uninstalled or disabled with iptables (Automated) - Not Implemented Because we prefer UFW
+
   ############################################################
-  # 3.5.3.2 Configure IPv4 iptables (NOT IN USE)
+  # 3.5.3.2 Configure IPv4 iptables
   ############################################################
 
+  # 3.5.3.2.1 Ensure iptables default deny firewall policy (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.3.2.2 Ensure iptables loopback traffic is configured (Automated) - Not Implemented Because we prefer UFW
   # 3.5.3.2.3 Ensure iptables outbound and established connections are configured (Manual) - Not Implemented
   # 3.5.3.2.4 Ensure iptables firewall rules exist for all open ports (Automated) - Not Implemented
 
   ############################################################
-  # 3.5.3.3 Configure IPv6 ip6tables (NOT IN USE)
+  # 3.5.3.3 Configure IPv6 ip6tables
   ############################################################
-  
-  # 3.5.3.3.3 Ensure ip6tables outbound and established connections are configured (Manual)
+
+  # 3.5.3.3.1 Ensure ip6tables default deny firewall policy (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.3.3.2 Ensure ip6tables loopback traffic is configured (Automated) - Not Implemented Because we prefer UFW
+  # 3.5.3.3.3 Ensure ip6tables outbound and established connections are configured (Manual) 
   # 3.5.3.3.4 Ensure ip6tables firewall rules exist for all open ports (Automated) - Not Implemented
 
   ############################################################
@@ -1912,22 +1895,63 @@ checks:
   ############################################################
 
   ############################################################
-  # 4.1 Configure System Accounting (auditd) (AuditD doesnt work with Proxmox containers)
+  # 4.1 Configure System Accounting (auditd)
   # 4.1.1 Ensure auditing is enabled
   ############################################################
 
-  ############################################################
-  # 4.1.2 Configure Data Retention (AuditD doesnt work with Proxmox containers)
-  ############################################################
+  # 4.1.1.1 Ensure auditd is installed (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.1.2 Ensure auditd service is enabled and active (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.1.3 Ensure auditing for processes that start prior to auditd is enabled (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.1.4 Ensure audit_backlog_limit is sufficient (Automated)  - Not Implemented because auditd doesnt work on a container
 
   ############################################################
-  # 4.1.3 Configure auditd rules (AuditD doesnt work with Proxmox containers)
+  # 4.1.2 Configure Data Retention
   ############################################################
 
+  # 4.1.2.1 Ensure audit log storage size is configured (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.2.2 Ensure audit logs are not automatically deleted (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.2.3 Ensure system is disabled when audit logs are full (Automated)  - Not Implemented because auditd doesnt work on a container
+
   ############################################################
-  # 4.1.4 Configure auditd file access (AuditD doesnt work with Proxmox containers)
+  # 4.1.3 Configure auditd rules
   ############################################################
 
+  # 4.1.3.1 Ensure changes to system administration scope (sudoers) is collected (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.2 Ensure actions as another user are always logged (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.3 Ensure events that modify the sudo log file are collected (Automated) - Not Implemented
+  # 4.1.3.4 Ensure events that modify date and time information are collected (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.5 Ensure events that modify the system's network environment are collected (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.6 Ensure use of privileged commands are collected (Automated) - Not Implemented
+  # 4.1.3.7 Ensure unsuccessful file access attempts are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.8 Ensure events that modify user/group information are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.9 Ensure discretionary access control permission modification events are collected (Automated) - Not Implemented
+  # 4.1.3.10 Ensure successful file system mounts are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.11 Ensure session initiation information is collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.12 Ensure login and logout events are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.13 Ensure file deletion events by users are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.14 Ensure events that modify the system's Mandatory Access Controls are collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.15 Ensure successful and unsuccessful attempts to use the chcon command are recorded (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.16 Ensure successful and unsuccessful attempts to use the setfacl command are recorded (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.17 Ensure successful and unsuccessful attempts to use the chacl command are recorded (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.18 Ensure successful and unsuccessful attempts to use the usermod command are recorded (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.19 Ensure kernel module loading unloading and modification is collected (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.20 Ensure the audit configuration is immutable (Automated)  - Not Implemented because auditd doesnt work on a container
+  # 4.1.3.21 Ensure the running and on disk configuration is the same (Manual) - Not Implemented because auditd doesnt work on a container
+ 
+  ############################################################
+  # 4.1.4 Configure auditd file access
+  ############################################################
+
+  # 4.1.4.1 Ensure audit log files are mode 0640 or less permissive (Automated) - Not Implemented
+  # 4.1.4.2 Ensure only authorized users own audit log files (Automated) - Not Implemented
+  # 4.1.4.3 Ensure only authorized groups are assigned ownership of audit log files (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.4 Ensure the audit log directory is 0750 or more restrictive (Automated) - Not implemented
+  # 4.1.4.5 Ensure audit configuration files are 640 or more restrictive (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.6 Ensure audit configuration files are owned by root (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.7 Ensure audit configuration files belong to group root (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.8 Ensure audit tools are 755 or more restrictive (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.9 Ensure audit tools are owned by root (Automated) - Not Implemented because auditd doesnt work on a container
+  # 4.1.4.10 Ensure audit tools belong to group root (Automated) - Not Implemented because auditd doesnt work on a container
   # 4.1.4.11 Ensure cryptographic mechanisms are used to protect the integrity of audit tools (Automated) - Not Implemented
 
   ############################################################
