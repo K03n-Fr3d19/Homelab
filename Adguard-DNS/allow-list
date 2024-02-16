@@ -1,0 +1,46 @@
+# To make some services more usable
+
+# Duolingo
+@@||brb.duolingo.com^$important
+@@||excess.duolingo.com^$important
+
+# Other
+@@||www.maxmind.com^$important
+@@||static.maxmind.com^$important
+@@||device.maxmind.com^$important
+@@||th.bing.com^$important
+@@||api.paradox-interactive.com^$important
+@@||js.rbxcdn.com^$important
+@@||www.strato.nl^$important
+@@||strato.nl^$important
+@@||doy2mn9upadnk.cloudfront.net^$important
+@@||devforum-uploads.s3.dualstack.us-east-2.amazonaws.com^$important
+@@||www.microsoft.com^$important
+@@||software-static.download.prss.microsoft.com^$important
+@@||firebaseremoteconfig.googleapis.com^$important
+@@||widget-mediator.zopim.com^$important
+@@||sentry.monitoring.bitvavo.com^$important
+@@||widget.trustpilot.com^$important
+@@||bitvavo.absmartly.io^$important
+@@||clientstream.launchdarkly.com^$important
+@@||app.launchdarkly.com^$important
+@@||www.coingecko.com^$important
+@@||cdnjs.cloudflare.com^$important
+@@||logx.optimizely.com^$important
+@@||imap.strato.nl^$important
+@@||allestoringen.nl^$important
+@@||deff.nelreports.net^$important
+@@||jnn-pa.googleapis.com^$important
+@@||tinyurl.com^$important
+@@||attack.mitre.org^$important
+@@||cdn.discordapp.com^$important
+@@||medium.com^$important
+@@||update.code.visualstudio.com^$important
+@@||www.gravatar.com^$important
+@@||m.stripe.com^$important
+@@||b.stripecdn.com^$important
+@@||smtp.freedom.nl^$important@@||music.youtube.com^$important
+@@||github.com^$important
+@@||www.bing.com^$important
+@@||www.nzbstars.com^$important
+@@||sslreader.eweka.nl^$important
