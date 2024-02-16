@@ -5,6 +5,10 @@
 # [Amazon]
 ||advertising-api-eu.amazon.com^
 
+# [Google]
+||play.googleapis.com^$important
+||scone-pa.clients6.google.com^$important
+
 # [Google Ads]
 ||afs.googlesyndication.com^
 
@@ -68,10 +72,21 @@
 ||notes-analytics-events.apple.com
 ||books-analytics-events.apple.com
 ||weather-analytics-events.apple.com
+||gsp-ssl.ls-apple.com.akadns.net^$important
+||apps.mzstatic.com^$important
+||gspe79-ssl.ls.apple.com^$important
+||www.apple.com^$important
+||configuration.ls.apple.com^$important
+||gsp10-ssl.apple.com^$important
+||weather-analytics-events.apple.com^$important
+||seed.siri.apple.com^$important
+||gs-loc.apple.com^$important
+||gateway.icloud.com^$important
 
 # [Twitter/X]
 ||ads-api.twitter.com
 ||static.ads-twitter.com
+||ads-api.twitter.com^$important
 
 # [Doubleclick.net]
 ||stats.g.doubleclick.net
@@ -89,3 +104,6 @@
 
 # [ANTI SCAM LIST]
 ||dealertjemilo.nl
+
+# [Snapchat]
+||eu-west1-aws.api.sc-gw.com^important
