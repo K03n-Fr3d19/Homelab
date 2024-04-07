@@ -14,6 +14,14 @@
 @@||configuration.apple.com
 @@||gsa.apple.com
 @@||query.ess.apple.com
+@@||bag.itunes.apple.com
+@@||itunes.apple.com
+@@||identity.ess-apple.com.akadns.net
+@@||identity.ess.apple.com
+@@||static.ess.apple.com
+@@||query.ess.apple.com
+@@||gsa.idms-apple.com.akadns.net
+@@||init-p01md.apple.com
 
 # Other
 @@||www.maxmind.com^$important
