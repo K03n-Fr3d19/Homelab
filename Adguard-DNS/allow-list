@@ -4,6 +4,10 @@
 @@||brb.duolingo.com^$important
 @@||excess.duolingo.com^$important
 
+# Apple Passkey
+init.ess.apple.com
+kt-prod.ess.apple.com
+
 # Other
 @@||www.maxmind.com^$important
 @@||static.maxmind.com^$important
