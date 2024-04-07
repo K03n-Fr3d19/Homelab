@@ -8,8 +8,11 @@
 @@||init.ess.apple.com^$important
 @@||kt-prod.ess.apple.com^$important
 
-# Other Apple services^$important
+# Other Apple services
 @@||gateway.icloud.com^$important
+@@||ocsp2.apple.com^$important
+@@||configuration.apple.com
+@@||gsa.apple.com
 
 # Other
 @@||www.maxmind.com^$important
