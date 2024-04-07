@@ -5,8 +5,11 @@
 @@||excess.duolingo.com^$important
 
 # Apple Passkey
-init.ess.apple.com
-kt-prod.ess.apple.com
+@@||init.ess.apple.com^$important
+@@||kt-prod.ess.apple.com^$important
+
+# Other Apple services^$important
+@@||gateway.icloud.com^$important
 
 # Other
 @@||www.maxmind.com^$important
