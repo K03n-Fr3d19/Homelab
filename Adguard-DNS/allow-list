@@ -48,6 +48,7 @@
 @@||c0ak.rbxcdn.com^$important
 @@||css.rbxcdn.com^$important
 @@||lms.roblox.com^$important
+@@||js.rbxcdn.com^$important
 
 # Windows Services
 @@||checkappexec.microsoft.com^$important
@@ -102,7 +103,6 @@
 @@||device.maxmind.com^$important
 @@||th.bing.com^$important
 @@||api.paradox-interactive.com^$important
-@@||js.rbxcdn.com^$important
 @@||www.strato.nl^$important
 @@||strato.nl^$important
 @@||doy2mn9upadnk.cloudfront.net^$important
@@ -137,43 +137,14 @@
 @@||www.bing.com^$important
 @@||www.nzbstars.com^$important
 @@||sslreader.eweka.nl^$important
-@@||clip.opus.pro^$important
-@@||se.opus.pro^$important
-@@||s.opus.pro^$important
-@@||a.opus.pro^$important
 @@||widget.intercom.io^$important
-@@||api.opus.pro^$important
-@@||ext.cdn.opus.pro^$important
 @@||imap.freedom.nl^$important
 @@||www.maltego.com^$important
 @@||www.linkedin.com^$important
 @@||static.licdn.com^$important
-@@||setup.rbxcdn.com^$important
-@@||r3.o.lencr.org^$important
-@@||ecsv2.roblox.com^$important
-@@||t6.rbxcdn.com^$important
-@@||t4.rbxcdn.com^$important
-@@||t1.rbxcdn.com^$important
-@@||c2.rbxcdn.com^$important
-@@||c5.rbxcdn.com^$important
-@@||c0.rbxcdn.com^$important
-@@||locale.roblox.com^$important
-@@||c7.rbxcdn.com^$important
-@@||tr.rbxcdn.com^$important
 @@||hugh.cdn.rumble.cloud^$important
 @@||www.megekko.nl^$important
-@@||c6.rbxcdn.com^$important
-@@||t3.rbxcdn.com^$important
-@@||t2.rbxcdn.com^$important
-@@||t7.rbxcdn.com^$important
-@@||c1.rbxcdn.com^$important
-@@||t0.rbxcdn.com^$important
-@@||c4.rbxcdn.com^$important
-@@||c3.rbxcdn.com^$important
-@@||t5.rbxcdn.com^$important
 @@||challenges.cloudflare.com^$important
-@@||c0ak.rbxcdn.com^$important
-@@||css.rbxcdn.com^$important
 @@||hatching.io^$important
 @@||go.recordedfuture.com^$important
 @@||www.imdb.com^$important
@@ -200,7 +171,6 @@
 @@||v16-webapp-prime.tiktok.com^$important
 @@||p16-sign-va.tiktokcdn.com^$important
 @@||p77-sg.tiktokcdn.com^$important
-@@||lms.roblox.com^$important
 @@||cs.ns1p.net^$important
 @@||a.karma.sc2.fsapi.com^$important
 @@||cdn.url.protection-prd.f-sos.net^$important
