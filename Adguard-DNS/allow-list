@@ -93,6 +93,9 @@
 @@||api.opus.pro^$important
 @@||ext.cdn.opus.pro^$important
 
+# Cloudflare
+@@||challenges.cloudflare.com^$important
+
 # Other
 @@||www.maxmind.com^$important
 @@||static.maxmind.com^$important
