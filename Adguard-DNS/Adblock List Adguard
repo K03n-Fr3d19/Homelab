@@ -224,3 +224,8 @@
 ||movies.zsw.ca^$important
 ||public.tracker.vraphim.com^$important
 ||p4p.arenabg.com^$important
+
+# [Cyber Defense]
+# *.tunnels.api.visualstudio.com, *.devtunnels.ms are blocked due to a possibility of being abused by an attacker to get percistence on the victems device if they use VScode there for these domains should be blocked. If you are a developer that needs this to function you should create a custom filtering rule.
+||*.tunnels.api.visualstudio.com^
+||*.devtunnels.ms^
