@@ -13,65 +13,65 @@
 ||afs.googlesyndication.com^
 
 # [Google Analytics]
-||analytics.google.com
-||click.googleanalytics.com
+||analytics.google.com^
+||click.googleanalytics.com^
 
 # [Facebook]
-||an.facebook.com
+||an.facebook.com^
 
 # [Yandex]
-||extmaps-api.yandex.net
-||offerwall.yandex.net
+||extmaps-api.yandex.net^
+||offerwall.yandex.net^
 
 # [Unity]
-||auction.unityads.unity3d.com
-||webview.unityads.unity3d.com
-||config.unityads.unity3d.com
-||adserver.unityads.unity3d.com
+||auction.unityads.unity3d.com^
+||webview.unityads.unity3d.com^
+||config.unityads.unity3d.com^
+||adserver.unityads.unity3d.com^
 
 # [Realme]
-||bdapi-ads.realmemobile.com
-||bdapi-in-ads.realmemobile.com
+||bdapi-ads.realmemobile.com^
+||bdapi-in-ads.realmemobile.com^
 
 # [Oppo]
-||adsfs.oppomobile.com
-||adx.ads.oppomobile.com
-||ck.ads.oppomobile.com
-||data.ads.oppomobile.com
+||adsfs.oppomobile.com^
+||adx.ads.oppomobile.com^
+||ck.ads.oppomobile.com^
+||data.ads.oppomobile.com^
 
 # [Sentry]
-||browser.sentry-cdn.com
-||app.getsentry.com
+||browser.sentry-cdn.com^
+||app.getsentry.com^
 
 # [Bugsnag]
-||browser.sentry-cdn.com
-||app.getsentry.com
+||browser.sentry-cdn.com^
+||app.getsentry.com^
 
 # [Bugsnag]
-||notify.bugsnag.com
-||sessions.bugsnag.com
-||api.bugsnag.com
-||app.bugsnag.com
+||notify.bugsnag.com^
+||sessions.bugsnag.com^
+||api.bugsnag.com^
+||app.bugsnag.com^
 
 # [Yandex]
-||appmetrica.yandex.ru
-||metrika.yandex.ru
-||advertising.yandex.ru
+||appmetrica.yandex.ru^
+||metrika.yandex.ru^
+||advertising.yandex.ru^
 
 # [Yahoo]
-||udc.yahoo.com
-||udcm.yahoo.com
-||log.fc.yahoo.com
-||advertising.yahoo.com
-||adtech.yahooinc.com
+||udc.yahoo.com^
+||udcm.yahoo.com^
+||log.fc.yahoo.com^
+||advertising.yahoo.com^
+||adtech.yahooinc.com^
 
 # [Apple]
-||advertising.apple.com
-||tr.iadsdk.apple.com
-||metrics.mzstatic.com
-||notes-analytics-events.apple.com
-||books-analytics-events.apple.com
-||weather-analytics-events.apple.com
+||advertising.apple.com^
+||tr.iadsdk.apple.com^
+||metrics.mzstatic.com^
+||notes-analytics-events.apple.com^
+||books-analytics-events.apple.com^
+||weather-analytics-events.apple.com^
 ||gsp-ssl.ls-apple.com.akadns.net^$important
 ||apps.mzstatic.com^$important
 ||gspe79-ssl.ls.apple.com^$important
@@ -84,29 +84,32 @@
 ||gateway.icloud.com^$important
 
 # [Twitter/X]
-||ads-api.twitter.com
-||static.ads-twitter.com
+||ads-api.twitter.com^
+||static.ads-twitter.com^
 ||ads-api.twitter.com^$important
 
 # [Doubleclick.net]
-||stats.g.doubleclick.net
-||static.doubleclick.net
-||m.doubleclick.net
-||mediavisor.doubleclick.net
+||stats.g.doubleclick.net^
+||static.doubleclick.net^
+||m.doubleclick.net^
+||mediavisor.doubleclick.net^
 
 # [Adcolony]
 ||ads30.adcolony.com
-||adc3-launch.adcolony.com
-||events3alt.adcolony.com
+||adc3-launch.adcolony.com^
+||events3alt.adcolony.com^
 
 # [Media.net]
-||static.media.net
+||static.media.net^
 
 # [ANTI SCAM LIST]
-||dealertjemilo.nl
+||dealertjemilo.nl^
 
 # [Snapchat]
 ||eu-west1-aws.api.sc-gw.com^important
+
+# [Random shit]
+||theannoyingsite.com^
 
 # [UNWANTED TRACKERS not sorted]
 ||opentracker.i2p.rocks.koen.local^$important
