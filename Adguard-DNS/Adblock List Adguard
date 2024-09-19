@@ -8,6 +8,7 @@
 # [Google]
 ||play.googleapis.com^$important
 ||scone-pa.clients6.google.com^$important
+||remotedesktop.google.com^
 
 # [Google Ads]
 ||afs.googlesyndication.com^
